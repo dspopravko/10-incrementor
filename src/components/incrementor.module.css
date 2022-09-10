@@ -1,0 +1,24 @@
+.incrementor {
+    border: 8px solid var(--secondary-color);
+    border-radius: 8px;
+}
+.countWrapper {
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*border: 2px solid var(--secondary-color);*/
+    color: var(--secondary-color);
+    font-size: 4rem;
+    font-family: 'Kanit', sans-serif;
+    transition: ease-out 0.2s;
+}
+.btnWrapper {
+    padding: 5px;
+    /*border: 2px solid var(--secondary-color);*/
+    display: flex;
+    gap: 10px
+}
+.onlimit {
+    color: var(--error-color)
+}

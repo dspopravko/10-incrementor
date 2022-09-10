@@ -1,0 +1,11 @@
+.btn {
+    width: 100px;
+    height: 40px;
+    padding: 5px;
+    color: var(--primary-color);
+    font-family: 'Kanit', sans-serif;
+}
+
+.error {
+    color: red;
+}
