@@ -1,0 +1,26 @@
+.incrementor {
+    border: 8px solid var(--secondary-color);
+    border-radius: 8px;
+}
+.inputWrapper {
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*border: 2px solid var(--secondary-color);*/
+    color: var(--secondary-color);
+    font-size: 1.6rem;
+    font-family: 'Kanit', sans-serif;
+    transition: ease-out 0.2s;
+}
+.btnWrapper {
+    padding: 5px;
+    /*border: 2px solid var(--secondary-color);*/
+    display: flex;
+    justify-content: center;
+    gap: 10px
+}
+.onlimit {
+    color: var(--error-color)
+}
