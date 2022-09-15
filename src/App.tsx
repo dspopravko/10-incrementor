@@ -4,13 +4,25 @@ import {Incrementor} from "./components/Incrementor/Incrementor";
 import IncrementSetter from "./components/IncrementorSetter/IncrementSetter";
 
 function App() {
-    const [initialCount, setInitialCount] = useState(5)
-    const [incLimit, setIncLimit] = useState(10)
-console.log(initialCount)
+    const [init, setInit] = useState(1)
+    const [limit, setLimit] = useState(10)
+    const [reset, setReset] = useState(false)
+
+    const incrementSetterHandler = (initialCount: number, limit: number) => {
+        setInit(initialCount)
+        setLimit(limit)
+        setReset(true)
+    }
+
+
     return (
         <div className="App">
-            <IncrementSetter setInitialCount={setInitialCount} setIncLimit={setIncLimit}/>
-            <Incrementor limit={incLimit} initialCount={initialCount}/>
+            <IncrementSetter callback={incrementSetterHandler}/>
+            <Incrementor limit={limit}
+                         init={init}
+                         reset={reset}
+                         setReset={setReset}
+            />
         </div>
     );
 }

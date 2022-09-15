@@ -1,38 +1,48 @@
 import React, {useEffect, useState} from "react";
 import s from "./Incrementor.module.css"
 import UniversalButton from "../../common/UniversalButton";
+import {getFromLocalStorage, removeItem, setInLocalStorage} from "../localStorage/getSetFromLocalStorage";
+
 
 type IncrementorPropsType = {
-    initialCount: number
+    init: number
     limit: number
+    reset: boolean
+    setReset: (reset: boolean) => void
 }
 
-export const Incrementor = ({limit, initialCount}: IncrementorPropsType) => {
+export const Incrementor = ({limit, init, reset, setReset}: IncrementorPropsType) => {
     const [counter, setCounter] = useState<number>(0)
+    const [counterLimit, setCounterLimit] = useState<number>(0)
 
     useEffect(() => {
-        if (localStorage.getItem('counter') || '') {
-            const items = JSON.parse(localStorage.getItem('counter') || '');
-            items && setCounter(items);
-        } else setCounter(initialCount)
+        getFromLocalStorage('counter', init, setCounter)
+        getFromLocalStorage('limit', limit, setCounterLimit)
     }, []);
+
     useEffect(() => {
-        localStorage.setItem('counter', JSON.stringify(counter));
-    }, [counter]);
+        setInLocalStorage('counter', counter)
+        setInLocalStorage('limit', counterLimit)
+    }, [counter, counterLimit]);
 
-    // useEffect(() => {
-    //     resetCounter()
-    // }, [initialCount]);
+    useEffect(() => {
+        if (reset) {
+            resetCounter()
+            setReset(false)
+        }
+    }, [reset]);
 
-
-    const addCounter = () => setCounter(counter + 1)
     const resetCounter = () => {
-        setCounter(initialCount)
-        localStorage.removeItem('counter')
+        setCounter(init)
+        setCounterLimit(limit)
+        removeItem('counter')
+        removeItem('limit')
     }
 
-    const isLimitClass = counter >= limit ? s.onlimit : ""
-    const disableBtn = counter >= limit
+    const addCounter = () => setCounter(counter + 1)
+
+    const isLimitClass = counter >= counterLimit ? s.onlimit : ""
+    const disableBtn = counter >= counterLimit
 
     return (
         <div className={s.incrementor}>

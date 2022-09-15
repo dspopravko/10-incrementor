@@ -1,18 +1,24 @@
 .incrementor {
     border: 8px solid var(--secondary-color);
     border-radius: 8px;
+    width: 400px;
 }
 .inputWrapper {
+    margin-top: 10px;
+    gap: 20px;
     height: 160px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     /*border: 2px solid var(--secondary-color);*/
     color: var(--secondary-color);
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-family: 'Kanit', sans-serif;
     transition: ease-out 0.2s;
+}
+.inputWrapper input {
+    font-size: 1.4rem;
+    width: 50px;
 }
 .btnWrapper {
     padding: 5px;
@@ -21,6 +27,13 @@
     justify-content: center;
     gap: 10px
 }
+
 .onlimit {
     color: var(--error-color)
+}
+.error {
+    text-align: center;
+    height: 1rem;
+    color: #f6f6f6;
+    margin-bottom: 15px;
 }
