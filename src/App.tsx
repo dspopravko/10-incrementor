@@ -4,24 +4,23 @@ import {Incrementor} from "./components/Incrementor/Incrementor";
 import IncrementSetter from "./components/IncrementorSetter/IncrementSetter";
 
 function App() {
-    const [init, setInit] = useState(1)
-    const [limit, setLimit] = useState(10)
+
     const [reset, setReset] = useState(false)
 
-    const incrementSetterHandler = (initialCount: number, limit: number) => {
-        setInit(initialCount)
-        setLimit(limit)
+    const incrementSetterHandler = () => {
         setReset(true)
     }
 
-
     return (
         <div className="App">
-            <IncrementSetter callback={incrementSetterHandler}/>
-            <Incrementor limit={limit}
-                         init={init}
-                         reset={reset}
-                         setReset={setReset}
+            <IncrementSetter
+                callback={incrementSetterHandler}
+            />
+            <Incrementor
+                init={3}
+                limit={7}
+                reset={reset}
+                setReset={setReset}
             />
         </div>
     );

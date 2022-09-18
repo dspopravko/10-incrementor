@@ -1,26 +1,26 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import s from "./IncrementSetter.module.css";
 import UniversalButton from "../../common/UniversalButton";
-import {getFromLocalStorage} from "../localStorage/getSetFromLocalStorage";
+import {getFromLocalStorage, setInLocalStorage} from "../localStorage/getSetFromLocalStorage";
 
 type IncrementSetterProps = {
-    callback: (initial: number, limit: number) => void
+    callback: () => void
 }
 
-function IncrementSetter(props: IncrementSetterProps) {
+function IncrementSetter({callback}: IncrementSetterProps) {
     const [limit, setLimit] = useState(0)
     const [initialValue, setInitialValue] = useState(0)
     const [error, setError] = useState("")
 
     useEffect(() => {
-        getFromLocalStorage('counter', 0, setInitialValue)
         getFromLocalStorage('limit', 0, setLimit)
+        getFromLocalStorage('startValue', 0, setInitialValue)
     }, []);
 
     useEffect(() => {
         if (initialValue >= limit) {
             setError("Limit can not be greater than start value")
-        } else if (limit <= 0 || initialValue <=0) {
+        } else if (limit < 0 || initialValue < 0) {
             setError("Only positive numbers allowed")
         } else setError("")
 
@@ -35,7 +35,9 @@ function IncrementSetter(props: IncrementSetterProps) {
     }
 
     const setIncParameters = () => {
-        props.callback(initialValue, limit)
+        setInLocalStorage('startValue', initialValue)
+        setInLocalStorage('limit', limit)
+        callback()
     }
 
     const disableBtn = !!error
