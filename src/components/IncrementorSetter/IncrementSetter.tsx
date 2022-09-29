@@ -1,41 +1,45 @@
 import React, {FormEvent, useEffect, useState} from 'react';
 import s from "./IncrementSetter.module.css";
 import UniversalButton from "../../common/UniversalButton";
-import {getFromLocalStorage, setInLocalStorage} from "../localStorage/getSetFromLocalStorage";
+import {getFromLocalStorage, setInLocalStorage} from "../localStorage/localStorage";
 
 type IncrementSetterProps = {
     callback: () => void
 }
 
 function IncrementSetter({callback}: IncrementSetterProps) {
+    const [startValue, setStartValue] = useState(0)
     const [limit, setLimit] = useState(0)
-    const [initialValue, setInitialValue] = useState(0)
     const [error, setError] = useState("")
 
     useEffect(() => {
+        getFromLocalStorage('start', 0, setStartValue)
         getFromLocalStorage('limit', 0, setLimit)
-        getFromLocalStorage('startValue', 0, setInitialValue)
     }, []);
 
     useEffect(() => {
-        if (initialValue >= limit) {
+        if (startValue >= limit) {
             setError("Limit can not be greater than start value")
-        } else if (limit < 0 || initialValue < 0) {
+        } else if (limit < 0 || startValue < 0) {
             setError("Only positive numbers allowed")
         } else setError("")
 
-    }, [limit, initialValue])
+    }, [limit, startValue])
 
-
-    const setLimitHandler = (e: FormEvent<HTMLInputElement>) => {
-        setLimit(+e.currentTarget.value)
+    const checkValue = (e: FormEvent<HTMLInputElement>) => {
+        const a = e.currentTarget.value.replace(/\D+/g, '')
+        return a ? +a : 0
     }
+
     const setInitialHandler = (e: FormEvent<HTMLInputElement>) => {
-        setInitialValue(+e.currentTarget.value)
+        setStartValue(checkValue(e))
+    }
+    const setLimitHandler = (e: FormEvent<HTMLInputElement>) => {
+        setLimit(checkValue(e))
     }
 
-    const setIncParameters = () => {
-        setInLocalStorage('startValue', initialValue)
+    const setParameters = () => {
+        setInLocalStorage('start', startValue)
         setInLocalStorage('limit', limit)
         callback()
     }
@@ -50,21 +54,21 @@ function IncrementSetter({callback}: IncrementSetterProps) {
                     limit value
                     <input type={"number"}
                            value={limit}
-                           onInput={(e) => setLimitHandler(e)}/>
+                           onChange={(e) => setLimitHandler(e)}/>
                     <br/>
                 </div>
                 <div>
                     start value
                     <input type={"number"}
-                           value={initialValue}
-                           onInput={(e) => setInitialHandler(e)}/>
+                           value={startValue}
+                           onChange={(e) => setInitialHandler(e)}/>
                 </div>
             </div>
             <div className={s.error}>{error}</div>
             <div className={s.btnWrapper}>
                 <UniversalButton
                     disabled={disableBtn}
-                    callback={setIncParameters}>
+                    callback={setParameters}>
                     {"set values"}
                 </UniversalButton>
             </div>

@@ -3,6 +3,7 @@ export const getFromLocalStorage = (key: string, init: number, setter: (value: n
         const items = JSON.parse(localStorage.getItem(key) || '');
         items && setter(items);
     } else {
+        console.log("Did not find " + key + ". Setting to initial" + init)
         setter(init)}
 }
 

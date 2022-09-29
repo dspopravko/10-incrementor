@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import s from "./Incrementor.module.css"
 import UniversalButton from "../../common/UniversalButton";
-import {getFromLocalStorage, setInLocalStorage} from "../localStorage/getSetFromLocalStorage";
+import {getFromLocalStorage, setInLocalStorage} from "../localStorage/localStorage";
 
 
 type IncrementorPropsType = {
-    init?: number
+    start?: number
     limit?: number
     reset: boolean
     setReset: (reset: boolean) => void
@@ -14,7 +14,7 @@ type IncrementorPropsType = {
 export const Incrementor = ({
                                 reset,
                                 setReset,
-                                init = 1,
+                                start = 1,
                                 limit = 10
                             }: IncrementorPropsType) => {
 
@@ -22,7 +22,7 @@ export const Incrementor = ({
     const [counterLimit, setCounterLimit] = useState<number>(0)
 
     useEffect(() => {
-        getFromLocalStorage('counter', init, setCounter)
+        getFromLocalStorage('counter', start, setCounter)
         getFromLocalStorage('limit', limit, setCounterLimit)
     }, []);
 
@@ -39,7 +39,8 @@ export const Incrementor = ({
     }, [reset]);
 
     const resetCounter = () => {
-        getFromLocalStorage('startValue', init, setCounter)
+        // getFromLocalStorage('counter', counter, setCounter)
+        getFromLocalStorage('start', start, setCounter)
         getFromLocalStorage('limit', limit, setCounterLimit)
     }
 

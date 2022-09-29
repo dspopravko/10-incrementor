@@ -17,7 +17,7 @@ function App() {
                 callback={incrementSetterHandler}
             />
             <Incrementor
-                init={3}
+                start={3}
                 limit={7}
                 reset={reset}
                 setReset={setReset}
