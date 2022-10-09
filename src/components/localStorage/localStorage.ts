@@ -1,10 +1,10 @@
-export const getFromLocalStorage = (key: string, init: number, setter: (value: number) => void) => {
+export const getFromLocalStorage = (key: string, init: number): number => {
     if (localStorage.getItem(key) || '') {
-        const items = JSON.parse(localStorage.getItem(key) || '');
-        items && setter(items);
+        return JSON.parse(localStorage.getItem(key) || '')
     } else {
-        console.log("Did not find " + key + ". Setting to initial" + init)
-        setter(init)}
+        console.log("Did not find " + key + ". Setting to initial " + init)
+        return init
+    }
 }
 
 export const setInLocalStorage = (key: string, value: number) => {

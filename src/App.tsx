@@ -1,28 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import {Incrementor} from "./components/Incrementor/Incrementor";
-import IncrementSetter from "./components/IncrementorSetter/IncrementSetter";
+import {IncrementerContainer} from "./components/Incrementer.container";
+import {createTheme, ThemeProvider} from "@mui/material";
+import {lightBlue} from "@mui/material/colors";
 
 function App() {
 
-    const [reset, setReset] = useState(false)
-
-    const incrementSetterHandler = () => {
-        setReset(true)
-    }
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: lightBlue[100],
+            },
+        },
+    });
 
     return (
-        <div className="App">
-            <IncrementSetter
-                callback={incrementSetterHandler}
-            />
-            <Incrementor
-                start={3}
-                limit={7}
-                reset={reset}
-                setReset={setReset}
-            />
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className="App">
+                <IncrementerContainer/>
+            </div>
+        </ThemeProvider>
     );
 }
 

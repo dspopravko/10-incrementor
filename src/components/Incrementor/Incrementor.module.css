@@ -1,21 +1,22 @@
-.incrementor {
-    border: 8px solid var(--secondary-color);
-    border-radius: 8px;
+.limits {
+    color: var(--secondary-color);
+    font-size: 1.4rem;
+    font-family: 'Kanit', sans-serif;
+    transition: ease-out 0.2s;
 }
 .countWrapper {
     height: 160px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    /*border: 2px solid var(--secondary-color);*/
     color: var(--secondary-color);
     font-size: 4rem;
     font-family: 'Kanit', sans-serif;
     transition: ease-out 0.2s;
+    user-select: none;
 }
 .btnWrapper {
     padding: 5px;
-    /*border: 2px solid var(--secondary-color);*/
     display: flex;
     gap: 10px
 }

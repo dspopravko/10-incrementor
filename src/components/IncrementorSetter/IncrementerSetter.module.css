@@ -1,28 +1,27 @@
-.incrementor {
-    border: 8px solid var(--secondary-color);
-    border-radius: 8px;
-    width: 400px;
-}
 .inputWrapper {
     margin-top: 10px;
     gap: 20px;
-    height: 160px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*border: 2px solid var(--secondary-color);*/
     color: var(--secondary-color);
     font-size: 1.4rem;
     font-family: 'Kanit', sans-serif;
     transition: ease-out 0.2s;
 }
+.inputBlockWrapper:first-child {
+    padding-top: 26px;
+}
 .inputWrapper input {
     font-size: 1.4rem;
-    width: 50px;
+    width: 60px;
+}
+.inputBlockWrapper {
+    display: flex;
+    gap: 20px
 }
 .btnWrapper {
     padding: 5px;
-    /*border: 2px solid var(--secondary-color);*/
     display: flex;
     justify-content: center;
     gap: 10px
