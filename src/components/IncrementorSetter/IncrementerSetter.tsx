@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import s from "./IncrementerSetter.module.css";
-import {getFromLocalStorage} from "../localStorage/localStorage";
 import {Button, OutlinedInput} from "@mui/material";
 
 type IncrementorSetterPropsType = {
@@ -11,11 +10,6 @@ function IncrementerSetter({saveInLS}: IncrementorSetterPropsType) {
     const [startValue, setStartValue] = useState(0)
     const [limit, setLimit] = useState(0)
     const [error, setError] = useState("")
-
-    useEffect(() => {
-        setStartValue(getFromLocalStorage('start', 0))
-        setLimit(getFromLocalStorage('limit', 0))
-    }, []);
 
     useEffect(() => {
         if (startValue >= limit) {
@@ -29,6 +23,7 @@ function IncrementerSetter({saveInLS}: IncrementorSetterPropsType) {
 
     const checkValue = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const a = +e.currentTarget.value.toString()
+        if (a < 0) setError("Only positive numbers allowed")
         return a >= 0 ? a < 1000 ? a : 999 : 0
     }
 
@@ -58,11 +53,11 @@ function IncrementerSetter({saveInLS}: IncrementorSetterPropsType) {
                     ></OutlinedInput>
                 </div>
             </div>
-            <div className={s.error}>{!!error}</div>
+            <div className={s.error}>{error}</div>
             <div className={s.btnWrapper}>
                 <Button
                     variant="contained"
-                    disabled={!!error}
+                    disabled={!!error && error !== "Only positive numbers allowed"}
                     onClick={() => {
                         setParameters()
                     }}

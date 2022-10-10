@@ -1,4 +1,4 @@
-import {getFromLS, incrementAC, IncrementerType, resetAC, saveInLS} from "../reducer/incrementor-reduser";
+import {incrementAC, IncrementerType, resetAC, saveInLS} from "../reducer/incrementor-reducer";
 import {ReduxStateType} from "../reducer/redux";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
@@ -8,7 +8,6 @@ type MapStateToPropsType = ({ counter: IncrementerType })
 type MapDispatchToPropsType = {
     increment: () => void
     reset: () => void
-    getFromLS: () => void
     saveInLS: (start: number, limit: number) => void
 }
 
@@ -19,7 +18,6 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         increment: () => dispatch(incrementAC()),
         reset: () => dispatch(resetAC()),
-        getFromLS: () => dispatch(getFromLS()),
         saveInLS: (start: number, limit: number) => dispatch(saveInLS(start, limit)),
     }
 }

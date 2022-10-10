@@ -1,10 +1,7 @@
-import {getFromLocalStorage, setInLocalStorage} from "../components/localStorage/localStorage";
-
 export type IncrementorReducerActionTypes =
     ReturnType<typeof resetAC>
     | ReturnType<typeof incrementAC>
     | ReturnType<typeof resetAC>
-    | ReturnType<typeof getFromLS>
     | ReturnType<typeof saveInLS>
 
 
@@ -25,11 +22,6 @@ export const resetAC = () => {
         type: "RESET-COUNTER",
     } as const
 }
-export const getFromLS = () => {
-    return {
-        type: "GET-VARIABLES",
-    } as const
-}
 export const saveInLS = (start: number, limit: number) => {
     return {
         type: "SET-VARIABLES",
@@ -48,22 +40,10 @@ export const incrementorReducer = (state: IncrementerType = initialState, action
     switch (action.type) {
         case "INCREMENT-COUNTER":
             const value = state.value + 1
-            setInLocalStorage("value", value)
             return {...state, value: value}
         case "RESET-COUNTER":
-            setInLocalStorage("value", state.start)
             return {...state, value: state.start}
-        case "GET-VARIABLES": {
-            const newstate: any = {}
-            for (const [key, value] of Object.entries(state)) {
-                newstate[key] = getFromLocalStorage(key, value)
-            }
-            console.log(newstate)
-            return {...newstate}
-        }
         case "SET-VARIABLES": {
-            setInLocalStorage("start", action.start)
-            setInLocalStorage("limit", action.limit)
             return {...state, start: action.start, limit: action.limit}
         }
         default: return state

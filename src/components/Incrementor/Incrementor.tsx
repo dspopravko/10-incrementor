@@ -5,10 +5,10 @@ import IncrementerSetter from "../IncrementorSetter/IncrementerSetter";
 import {Button, Paper} from "@mui/material";
 
 
-export const Incrementor = ({counter, saveInLS, increment, getFromLS, reset}: IncrementorPropsType) => {
+export const Incrementor = ({counter, saveInLS, increment, reset}: IncrementorPropsType) => {
 
     useEffect(() => {
-        getFromLS()
+        // getFromLS()
     }, []);
 
     const addCounter = () => increment()
